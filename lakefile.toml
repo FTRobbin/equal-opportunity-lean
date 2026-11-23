@@ -1,0 +1,18 @@
+name = "EqualOpportunity"
+version = "0.1.0"
+defaultTargets = ["EqualOpportunity"]
+# Mathlib is written with Lean's new `module` system; these files are plain Lean files.
+# This opts out of the warning Lake would otherwise print for every file importing Mathlib.
+allowNonModules = true
+
+[leanOptions]
+autoImplicit = false
+pp.unicode.fun = true
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.36.0"
+
+[[lean_lib]]
+name = "EqualOpportunity"
