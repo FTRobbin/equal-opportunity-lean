@@ -57,13 +57,8 @@ noncomputable def weakProb (N : NoiseLaw p) (ats : Fin n → ℝ) (π : Equiv.Pe
 noncomputable def strictProb (N : NoiseLaw p) (ats : Fin n → ℝ) (π : Equiv.Perm (Fin n)) : ℝ :=
   (N.joint n).real {η | StrictOut π (ats + η)}
 
-/-- `OrderingEquality` unfolded: the adversary's best case for `π` is `weakProb`, its worst
-case is `strictProb`. -/
-theorem orderingEquality_iff (N : NoiseLaw p) (ε : ℝ) :
-    OrderingEquality p N n ε ↔
-      ∀ (T : ℝ) (ats : Fin n → ℝ), Admissible p (fun _ => T) ats → ∀ π : Equiv.Perm (Fin n),
-        weakProb N ats π - 1 / (n ! : ℝ) ≤ ε ∧ 1 / (n ! : ℝ) - strictProb N ats π ≤ ε := by
-  sorry
+/-! `OrderingEquality` depends only on these two quantities: see `orderingEquality_iff` in
+`Equality/Envelope.lean`. -/
 
 /-! ### Sanity: the definition is neither vacuous nor unsatisfiable -/
 

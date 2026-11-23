@@ -1,5 +1,13 @@
 import EqualOpportunity.Basic
 import EqualOpportunity.Separation
 import EqualOpportunity.Equality.Defs
+import EqualOpportunity.Equality.Envelope
 import EqualOpportunity.Equality.Noise
+import EqualOpportunity.Equality.Combinatorics
+import EqualOpportunity.Equality.Discrete
+import EqualOpportunity.Equality.LowerBound
+import EqualOpportunity.Equality.Two
+import EqualOpportunity.Equality.OrderVolume
+import EqualOpportunity.Equality.Uniform
+import EqualOpportunity.Equality.UniformUpper
 import EqualOpportunity.Paper

@@ -11,6 +11,7 @@ open EqualOpportunity.Paper
 
 #print axioms thm_3_1
 #print axioms thm_3_2
+#print axioms cor_eps2
 #print axioms thm_3_3
 #print axioms thm_3_4
 #print axioms thm_3_4_upper

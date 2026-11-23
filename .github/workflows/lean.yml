@@ -10,5 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1
+        with:
+          build-args: "--wfail"
+      - name: Axiom audit (no sorryAx)
+        run: |
+          lake env lean scripts/axioms.lean | tee axioms.txt
+          ! grep -q sorryAx axioms.txt
       - name: Numeric cross-checks
         run: python3 scripts/check_bounds.py
