@@ -9,5 +9,8 @@ import EqualOpportunity.Equality.LowerBound
 import EqualOpportunity.Equality.Two
 import EqualOpportunity.Equality.OrderVolume
 import EqualOpportunity.Equality.Uniform
+import EqualOpportunity.Equality.TailRegion
+import EqualOpportunity.Equality.AdaptiveDefs
+import EqualOpportunity.Equality.Adaptive
 import EqualOpportunity.Equality.UniformUpper
 import EqualOpportunity.Paper

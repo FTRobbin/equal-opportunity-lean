@@ -6,7 +6,7 @@ import EqualOpportunity.Equality.LowerBound
 For two commands and any noise law `D`, the best achievable `ε(2)` is exactly
 `Pr[x − y < Δnet] − 1/2`, where `x, y` are independent samples from `D` (`eps2_isLeast`).
 
-Theorem 3.2 bounds this quantity from below for every `D`; the appendix's Theorem 3.3 computes
+Theorem 3.2 bounds this quantity from below for every `D`; Theorem A.1 computes
 it for uniform noise.
 -/
 

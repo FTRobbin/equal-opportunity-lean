@@ -56,12 +56,12 @@ def check_uniform(trials: int = 400_000):
     random.seed(1)
     u = random.random
 
-    print("== Appendix Thm 3.3 (uniform, n=2): sup Pr[i1 < i2] = 1/2 + alpha - alpha^2/2")
+    print("== Theorem A.1 (uniform, n=2): sup Pr[i1 < i2] = 1/2 + alpha - alpha^2/2")
     for a in (0.25, 0.5, 1.0):
         sim = mc(lambda: u() < a + u(), trials)  # offsets (0, alpha)
         print(f"  alpha={a}: sim={sim:.4f}  formula={0.5 + a - a * a / 2:.4f}")
 
-    print("== Appendix Thm 3.4 lower (uniform): inf Pr[pi] = (1-alpha)^n / n!")
+    print("== Theorem A.2 lower (uniform): inf Pr[pi] = (1-alpha)^n / n!")
     for a, n in [(0.25, 3), (0.5, 3), (0.5, 4)]:
         # first command of pi gets offset alpha, last gets 0, the rest anything (here alpha/2)
         offs = [a] + [a / 2] * (n - 2) + [0.0]
@@ -71,7 +71,7 @@ def check_uniform(trials: int = 400_000):
             return all(x[i] < x[i + 1] for i in range(n - 1))
         print(f"  alpha={a} n={n}: sim={mc(ev, trials):.4f}  formula={(1 - a) ** n / factorial(n):.4f}")
 
-    print("== Appendix Thm 3.4 upper (uniform): ((1+alpha)^n - n alpha^n) / n!")
+    print("== Theorem A.2 upper (uniform): ((1+alpha)^n - n alpha^n) / n!")
     print("   adaptive greedy attains it; the best non-adaptive assignment for n=3 does not")
     for a in (0.5, 1.0):
         n = 3
@@ -97,6 +97,12 @@ def check_uniform(trials: int = 400_000):
         print(f"  alpha={a}: paper={paper:.4f}  adaptive sim={mc(adaptive, trials):.4f}  "
               f"non-adaptive grid best={best[0]:.4f} at {best[1]}  conjectured={conj:.4f}")
         assert best[0] <= paper + 0.01
+
+    print("== Theorem A.2 dominance: 1 - (1-alpha)^n <= (1+alpha)^n - 1 - n alpha^n  for n >= 2")
+    bad = [(a, n) for a in [i / 100 for i in range(101)] for n in range(2, 40)
+           if 1 - (1 - a) ** n > (1 + a) ** n - 1 - n * a ** n + 1e-12]
+    print(f"  violations: {bad}")
+    assert not bad
 
 
 if __name__ == "__main__":

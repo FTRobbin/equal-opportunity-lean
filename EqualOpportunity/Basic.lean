@@ -34,7 +34,7 @@ namespace Params
 (see `k_mul_le` and `lt_k_succ_mul`). -/
 noncomputable def k (p : Params) : ℕ := ⌊p.Δnoise / p.Δnet⌋₊
 
-/-- The appendix's `α = Δnet / Δnoise`.  (Lean's `x / 0 = 0`: only meaningful if `0 < Δnoise`.) -/
+/-- Appendix A's `α = Δnet / Δnoise`.  (Lean's `x / 0 = 0`: only meaningful if `0 < Δnoise`.) -/
 noncomputable def α (p : Params) : ℝ := p.Δnet / p.Δnoise
 
 theorem k_mul_le (p : Params) : (p.k : ℝ) * p.Δnet ≤ p.Δnoise := by

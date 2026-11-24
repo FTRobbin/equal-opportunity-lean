@@ -4,7 +4,7 @@ import EqualOpportunity.Basic
 # The two concrete noise distributions analysed in the paper
 
 * `discreteNoise p` — uniform on the `k + 1` points `0, Δnet, 2Δnet, …, kΔnet` (Theorem 3.3);
-* `uniformNoise p`  — the continuous uniform distribution on `[0, Δnoise]` (appendix §3.2).
+* `uniformNoise p`  — the continuous uniform distribution on `[0, Δnoise]` (Appendix A.5).
 -/
 
 open MeasureTheory

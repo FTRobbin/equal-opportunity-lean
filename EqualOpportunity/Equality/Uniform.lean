@@ -3,15 +3,15 @@ import EqualOpportunity.Equality.Noise
 import EqualOpportunity.Equality.OrderVolume
 
 /-!
-# Continuous uniform noise (appendix §3.2)
+# Continuous uniform noise (Appendix A.5)
 
 With `η` uniform on `[0, Δnoise]ⁿ`, the modified timestamps `ats + η` are uniform on the
 shifted box `∏ᵢ [atsᵢ, atsᵢ + Δnoise]`.  So every probability is a Lebesgue volume divided by
 `Δnoiseⁿ` (`uniform_weakProb`, `uniform_strictProb`), and the order-volume lemma
 (`volume_real_strictCube`) evaluates the volumes that matter:
 
-* appendix Theorem 3.3: `ε(2) = α − α²/2`;
-* appendix Theorem 3.4, lower bound: `Pr[π] ≥ (1 − α)ⁿ / n!`, and it is tight.
+* Theorem A.1: `ε(2) = α − α²/2`;
+* Theorem A.2, lower bound: `Pr[π] ≥ (1 − α)ⁿ / n!`, and it is tight.
 -/
 
 open MeasureTheory
@@ -89,7 +89,7 @@ theorem uniform_strictProb (ats : Fin n → ℝ) (π : Equiv.Perm (Fin n)) :
       volume.real ({ts | StrictOut π ts} ∩ shiftBox p.Δnoise ats) / p.Δnoise ^ n :=
   uniform_prob_shift p h0 ats (measurableSet_strictOut π)
 
-/-! ### Appendix Theorem 3.4, lower bound -/
+/-! ### Theorem A.2, lower bound -/
 
 include h0 in
 /-- `(1 − α)ⁿ / n!` written as a cube volume over `Δnoiseⁿ`. -/
@@ -102,7 +102,7 @@ theorem one_sub_alpha_pow (n : ℕ) :
   rw [h, div_pow]
   field_simp
 
-/-- **Appendix Theorem 3.4, lower bound**: whatever the adversary does, with probability
+/-- **Theorem A.2, lower bound**: whatever the adversary does, with probability
 `(1 − α)ⁿ` all modified timestamps land in `[T + Δnet, T + Δnoise]`, where they are iid uniform,
 and then each order has probability `1/n!`. -/
 theorem uniform_strictProb_ge (hα : p.Δnet ≤ p.Δnoise) {T : ℝ} {ats : Fin n → ℝ}
@@ -201,7 +201,7 @@ theorem uniform_weakProb_lt (hα : p.Δnet ≤ p.Δnoise) (hn : 2 ≤ n) (π : E
       ≤ f h := div_le_div_of_nonneg_right hmono (pow_pos h0 n).le
     _ < f 0 + δ := hfh
 
-/-! ### Appendix Theorem 3.3: `ε(2) = α − α²/2` -/
+/-! ### Theorem A.1: `ε(2) = α − α²/2` -/
 
 /-- For uniform noise, `Pr[x − y < Δnet] = 1 − (1 − α)²/2`. -/
 theorem uniform_nearProb (hα : p.Δnet ≤ p.Δnoise) :
@@ -244,7 +244,7 @@ theorem uniform_nearProb (hα : p.Δnet ≤ p.Δnoise) :
   rw [← joint_two_near (uniformNoise p h0) (a := 0) (b := 1) (by decide)]
   linarith
 
-/-- **Appendix Theorem 3.3.** -/
+/-- **Theorem A.1.** -/
 theorem uniform_isLeast_two (hα : p.Δnet ≤ p.Δnoise) :
     IsLeast {ε : ℝ | OrderingEquality p (uniformNoise p h0) 2 ε} (p.α - p.α ^ 2 / 2) := by
   have h := eps2_isLeast (uniformNoise p h0)

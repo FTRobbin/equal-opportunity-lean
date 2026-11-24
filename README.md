@@ -2,7 +2,7 @@
 
 A Lean 4 + Mathlib formalization of the ordering analysis in
 *Equal Opportunity: A Correctness Condition for Ordered Consensus* (OSDI '26):
-§3.5 (Theorems 3.1–3.4) and the appendix results for continuous uniform noise.
+§3.5 (Theorems 3.1–3.4) and Appendix A (Theorems A.1 and A.2, continuous uniform noise).
 
 > Yunhao Zhang, Haobin Ni, Soumya Basu, Shir Cohen, Maofan Yin, Lorenzo Alvisi,
 > Robbert van Renesse, Qi Chen, and Lidong Zhou.
@@ -11,7 +11,7 @@ A Lean 4 + Mathlib formalization of the ordering analysis in
 > (OSDI '26)*, 2026.
 > <https://www.usenix.org/conference/osdi26/presentation/zhang-yunhao>
 >
-> The appendix is part of the extended version, arXiv:2509.09868.
+> Appendix A is part of the extended version, arXiv:2509.09868.
 
 ## Summary
 
@@ -24,10 +24,17 @@ depends only on Lean's three standard axioms (`propext`, `Classical.choice`, `Qu
 | Thm 3.2 (ε(2) ≥ 1/(2(k+1)) for every D) | `thm_3_2` | `Equality/LowerBound.lean` |
 | Corollary (ε(2) = Pr[x − y < Δnet] − 1/2 for every D) | `cor_eps2` | `Equality/Two.lean` |
 | Thm 3.3 (discrete D attains it) | `thm_3_3` | `Equality/Discrete.lean` |
-| Thm 3.4 (ε(n), discrete D) | `thm_3_4`, `thm_3_4_upper`, `thm_3_4_lower`, `thm_3_4_degenerate` | `Equality/Discrete.lean` |
-| App. Thm 3.3 (ε(2) = α − α²/2, uniform D) | `app_thm_3_3` | `Equality/Uniform.lean` |
-| App. Thm 3.4, lower bound and its tightness | `app_thm_3_4_lower`, `app_thm_3_4_lower_tight` | `Equality/Uniform.lean` |
-| App. Thm 3.4, upper bound and ε(n) guarantee | `app_thm_3_4_upper`, `app_thm_3_4` | `Equality/UniformUpper.lean` |
+| Thm 3.4 (ε(n), discrete D; proof in Appendix A.4) | `thm_3_4`, `thm_3_4_upper`, `thm_3_4_lower`, `thm_3_4_degenerate` | `Equality/Discrete.lean` |
+| Thm A.1 (ε(2) = α − α²/2, uniform D) | `thm_A_1` | `Equality/Uniform.lean` |
+| Thm A.2 (ε(n) = ((1+α)ⁿ − 1 − nαⁿ)/n! for n ≥ 2, uniform D) | `thm_A_2` | `Equality/UniformUpper.lean` |
+| Thm A.2, bounds on Pr[≻] from its proof | `thm_A_2_lower`, `thm_A_2_lower_tight`, `thm_A_2_upper` | `Equality/Uniform.lean`, `Equality/UniformUpper.lean` |
+| Thm A.2, upper bound holds for every adaptive strategy | `thm_A_2_adaptive_upper` | `Equality/Adaptive.lean` |
+| Thm A.2, upper bound is tight for the adaptive adversary | `thm_A_2_adaptive_tight` | `Equality/Adaptive.lean` |
+| The adaptive model extends the non-adaptive one | `adaptive_extends_nonadaptive` | `Equality/UniformUpper.lean` |
+
+The adversary is non-adaptive by default, as in the paper. Theorem A.2 is a guarantee against
+that adversary; its value is tight only for the adaptive adversary, which is what the last
+three rows are about.
 
 ## Building
 
@@ -43,7 +50,7 @@ Toolchain and Mathlib are pinned to `v4.36.0` (`lean-toolchain`, `lakefile.toml`
 
 ## What to read
 
-Lean checks proofs, not statements. If these five files say what the paper means, the rest
+Lean checks proofs, not statements. If these six files say what the paper means, the rest
 is machine-checked.
 
 1. `EqualOpportunity/Basic.lean` — the timing model.
@@ -71,7 +78,17 @@ is machine-checked.
 4. `EqualOpportunity/Equality/Noise.lean` — the two distributions the paper analyses.
    - `discreteNoise`: uniform on the `k + 1` points `0, Δnet, …, kΔnet`.
    - `uniformNoise`: the continuous uniform distribution on `[0, Δnoise]`.
-5. `EqualOpportunity/Paper.lean` — every theorem, by paper number.
+5. `EqualOpportunity/Equality/AdaptiveDefs.lean` — the adaptive adversary, used only for the
+   tightness of Theorem A.2.
+   - `Strategy n`: fixes the assigned timestamps of `n` commands one at a time, in the order of
+     the target permutation, seeing each command's modified timestamp before choosing the next.
+   - `Strategy.win p σ x`: the probability that, playing `σ`, the remaining commands all get
+     modified timestamps at least `x` and come out in the target order.
+   - `Strategy.Admissible p σ`: every timestamp `σ` can choose lies in `[0, Δnet)`, measured
+     from the invocation time.
+   - `Strategy.winProb p σ`: the probability that `σ` produces the target order.
+   - `Strategy.const t`: the non-adaptive strategy with fixed offsets `t`.
+6. `EqualOpportunity/Paper.lean` — every theorem, by paper number.
 
 Proof files, in dependency order:
 
@@ -83,5 +100,7 @@ Proof files, in dependency order:
 | `Equality/LowerBound.lean` | Thm 3.2: buckets, Cauchy–Schwarz, and the limit of offsets approaching `Δnet`. |
 | `Equality/Two.lean` | For any D, ε(2) = Pr[x − y < Δnet] − 1/2. |
 | `Equality/OrderVolume.lean` | Inside a cube, each ordering of the coordinates has volume `1/n!` of the cube. |
-| `Equality/Uniform.lean` | Uniform noise as Lebesgue measure on a box; App. Thm 3.3; App. Thm 3.4 lower bound. |
-| `Equality/UniformUpper.lean` | App. Thm 3.4 upper bound, by induction on the number of commands. |
+| `Equality/Uniform.lean` | Uniform noise as Lebesgue measure on a box; Thm A.1; the lower bound in Thm A.2. |
+| `Equality/TailRegion.lean` | The region of increasing timestamp vectors above a threshold, its slicing along the first command, and the two polynomials that bound its volume. |
+| `Equality/Adaptive.lean` | The upper bound in Thm A.2 for every adaptive strategy, by induction on the number of commands; the greedy strategy that attains it. |
+| `Equality/UniformUpper.lean` | The non-adaptive adversary as a constant strategy; Thm A.2 itself. |
