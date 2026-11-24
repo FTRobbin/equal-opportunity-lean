@@ -10,8 +10,8 @@ A Lean 4 + Mathlib formalization of the ordering analysis in
 > In *Proceedings of the USENIX Symposium on Operating Systems Design and Implementation
 > (OSDI '26)*, 2026.
 > <https://www.usenix.org/conference/osdi26/presentation/zhang-yunhao>
->
-> Appendix A is part of the extended version, arXiv:2509.09868.
+
+Appendix A is part of the extended version, [https://arxiv.org/abs/2509.09868].
 
 ## Summary
 
