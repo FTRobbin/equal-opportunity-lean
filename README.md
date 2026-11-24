@@ -1,15 +1,14 @@
 # Lean Formalization of Equal Opportunity
 
 A Lean 4 + Mathlib formalization of the ordering analysis in
-*Equal Opportunity: A Correctness Condition for Ordered Consensus* (OSDI '26):
+[Equal Opportunity: A Correctness Condition for Ordered Consensus (OSDI '26)](https://www.usenix.org/conference/osdi26/presentation/zhang-yunhao):
 §3.5 (Theorems 3.1–3.4) and Appendix A (Theorems A.1 and A.2, continuous uniform noise).
 
 > Yunhao Zhang, Haobin Ni, Soumya Basu, Shir Cohen, Maofan Yin, Lorenzo Alvisi,
 > Robbert van Renesse, Qi Chen, and Lidong Zhou.
 > **Equal Opportunity: A Correctness Condition for Ordered Consensus.**
-> In *Proceedings of the USENIX Symposium on Operating Systems Design and Implementation
-> (OSDI '26)*, 2026.
-> <https://www.usenix.org/conference/osdi26/presentation/zhang-yunhao>
+> In *20th USENIX Symposium on Operating Systems Design and Implementation (OSDI 26)*,
+> pages 1283–1298, Seattle, WA, July 2026. USENIX Association.
 
 Appendix A is part of the extended version, [arxiv:2509.09868](https://arxiv.org/abs/2509.09868).
 
