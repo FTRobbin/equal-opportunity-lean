@@ -11,7 +11,7 @@ A Lean 4 + Mathlib formalization of the ordering analysis in
 > (OSDI '26)*, 2026.
 > <https://www.usenix.org/conference/osdi26/presentation/zhang-yunhao>
 
-Appendix A is part of the extended version, [https://arxiv.org/abs/2509.09868].
+Appendix A is part of the extended version, [arxiv:2509.09868](https://arxiv.org/abs/2509.09868).
 
 ## Summary
 
